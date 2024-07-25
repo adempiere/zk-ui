@@ -138,7 +138,7 @@ dependencies {
     //implementation 'org.zkoss.zk:zk:3.6.3'
 
 	//	ADempiere Projects with additional features
-	//	ADempiere gRPC Utils Base (https://central.sonatype.com/artifact/io.github.adempiere/adempiere-grpc-utils)
+	// Dashboard Improvements (https://central.sonatype.com/artifact/io.github.adempiere/adempiere-dashboard-improvements)
 	implementation "${baseGroupId}:adempiere-dashboard-improvements:1.0.8"
 	// Point Of Sales Improvements (https://central.sonatype.com/artifact/io.github.adempiere/adempiere-pos-improvements)
 	implementation "${baseGroupId}:adempiere-pos-improvements:1.0.2"
