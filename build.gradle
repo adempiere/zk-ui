@@ -149,7 +149,7 @@ dependencies {
 	// AWS3 Connector to use as File Storage (https://central.sonatype.com/artifact/io.github.adempiere/adempiere-s3-connector)
 	implementation "${baseGroupId}:adempiere-s3-connector:1.0.4"
 	// Third part access using JWT (https://central.sonatype.com/artifact/io.github.adempiere/adempiere-jwt-token)
-	implementation "${baseGroupId}:adempiere-jwt-token:1.0.2"
+	implementation "${baseGroupId}:adempiere-jwt-token:1.0.3"
 	// https://mvnrepository.com/artifact/com.nimbusds/oauth2-oidc-sdk
 	implementation 'com.nimbusds:oauth2-oidc-sdk:9.35'
 	// https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt
