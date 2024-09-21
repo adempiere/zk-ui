@@ -25,10 +25,12 @@ repositories {
     mavenCentral()
     mavenLocal()
     maven {
-    	url = System.getenv("GITHUB_DEPLOY_REPOSITORY") ?: System.properties['deploy.repository'] ?: 'https://maven.pkg.github.com'
-        credentials {
-        	username = System.getenv("GITHUB_DEPLOY_USER") ?: System.properties['deploy.user']
-            password = System.getenv("GITHUB_DEPLOY_TOKEN") ?: System.properties['deploy.token'] 
+		// Adempiere GitHub Organization
+		url = 'https://maven.pkg.github.com/adempiere/adempiere'
+		credentials {
+			// project property, system properrty, enviroment variable
+			username = findProperty("deployUsername") ?: System.properties['deploy.user'] ?: System.getenv("GITHUB_DEPLOY_USER")
+			password = findProperty("deployToken") ?: System.properties['deploy.token'] ?: System.getenv("GITHUB_DEPLOY_TOKEN")
 		}
 	}
 }
@@ -143,9 +145,9 @@ dependencies {
 	// Point Of Sales Improvements (https://central.sonatype.com/artifact/io.github.adempiere/adempiere-pos-improvements)
 	implementation "${baseGroupId}:adempiere-pos-improvements:1.0.2"
 	// Business Processors (To Task's and Schedulers) (https://central.sonatype.com/artifact/io.github.adempiere/adempiere-business-processors)
-	implementation "${baseGroupId}:adempiere-business-processors:1.1.0"
+	implementation "${baseGroupId}:adempiere-business-processors:1.1.6"
 	// Engine as Queue (https://central.sonatype.com/artifact/io.github.adempiere/adempiere-kafka-connector)
-	implementation "${baseGroupId}:adempiere-kafka-connector:1.3.5"
+	implementation "${baseGroupId}:adempiere-kafka-connector:1.4.1"
 	// AWS3 Connector to use as File Storage (https://central.sonatype.com/artifact/io.github.adempiere/adempiere-s3-connector)
 	implementation "${baseGroupId}:adempiere-s3-connector:1.0.4"
 	// Third part access using JWT (https://central.sonatype.com/artifact/io.github.adempiere/adempiere-jwt-token)
