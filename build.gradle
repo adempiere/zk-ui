@@ -146,7 +146,7 @@ dependencies {
 	implementation "${baseGroupId}:adempiere-pos-improvements:1.0.2"
 	// Business Processors (To Task's and Schedulers) (https://central.sonatype.com/artifact/io.github.adempiere/adempiere-business-processors)
 	implementation "${baseGroupId}:adempiere-business-processors:1.1.6"
-	// Engine as Queue (https://central.sonatype.com/artifact/io.github.adempiere/adempiere-kafka-connector)
+	// Engine as Queue (https://github.com/adempiere/adempiere/packages/2207725) (https://central.sonatype.com/artifact/io.github.adempiere/adempiere-kafka-connector)
 	implementation "${baseGroupId}:adempiere-kafka-connector:1.4.3"
 	// AWS3 Connector to use as File Storage (https://central.sonatype.com/artifact/io.github.adempiere/adempiere-s3-connector)
 	implementation "${baseGroupId}:adempiere-s3-connector:1.0.4"
