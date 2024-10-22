@@ -23,7 +23,7 @@ services:
       - adempiere_network
             
   adempiere-zk:
-    image: ${ZK_IMAGE}
+    image: ${ADEMPIERE_ZK_IMAGE}
     container_name: ${ADEMPIERE_NAME}
     restart: ${GENERIC_RESTART}
     ports:
