@@ -13,7 +13,7 @@ jobs:
 
   # Build dist application adempiere-middleware
   build-app:
-    name: Build dist adempiere-zk
+    name: Build ADempiere Zk
     runs-on: ubuntu-24.04
     steps:
       - name: Check out the repo
