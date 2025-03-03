@@ -1,7 +1,6 @@
-version: "3.9"
 
 services:
-  adempiere.db:
+  adempiere-db:
     build:
       context: postgresql/
       dockerfile: Dockerfile
@@ -18,28 +17,38 @@ services:
       start_period: 20s
       timeout: 10s
     environment:
+      # TODO: Manage with secrets and not with environment variables
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
       - adempiere_network
-            
+
   adempiere-zk:
     image: ${ADEMPIERE_ZK_IMAGE}
     container_name: ${ADEMPIERE_NAME}
     restart: ${GENERIC_RESTART}
     ports:
       - ${ADEMPIERE_ZK_PORT}:8080
+    secrets:
+      - adempiere_db_password
     environment:
       ADEMPIERE_DB_SERVER: ${POSTGRES_NAME}
+      ADEMPIERE_DB_PASSWORD_FILE: /run/secrets/adempiere_db_password
     depends_on:
-      adempiere.db:
+      adempiere-db:
         condition: service_healthy
     networks:
-      - adempiere_network 
-      
+      - adempiere_network
+
+
+
 networks:
   adempiere_network:
     name: ${ADEMPIERE_NETWORK}
-    
+
 volumes:
   volume_postgres:
     name: ${POSTGRES_NETWORK}
+
+secrets:
+  adempiere_db_password:
+    file: ./secrets/adempiere_db_password.txt

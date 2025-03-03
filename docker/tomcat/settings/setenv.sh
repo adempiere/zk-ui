@@ -4,8 +4,13 @@
 #  Setting ADempiere Server                                                   ##
 ################################################################################
 
-#Adempiere Application Type
-export ADEMPIERE_APPS_TYPE=tomcat
+# Adempiere Application Type
+export ADEMPIERE_APPS_TYPE="tomcat"
+
+# Read password from secret file if defined
+if [ -n "$ADEMPIERE_DB_PASSWORD_FILE" ] && [ -f "$ADEMPIERE_DB_PASSWORD_FILE" ]; then
+  export ADEMPIERE_DB_PASSWORD=$(cat "$ADEMPIERE_DB_PASSWORD_FILE")
+fi
 
 #Set Database Type
 case $ADEMPIERE_DB_TYPE in 

@@ -1,4 +1,5 @@
 FROM tomcat:9.0.72-jdk11-temurin
+
 LABEL manteiner=cparada@erpya.com
 	
 ENV ADEMPIERE_HOME="/opt/Adempiere" \
@@ -8,7 +9,7 @@ ENV ADEMPIERE_HOME="/opt/Adempiere" \
 	ADEMPIERE_DB_TYPE="PostgreSQL" \
 	ADEMPIERE_DB_SERVER="localhost" \
 	ADEMPIERE_DB_NAME="adempiere" \
-	ADEMPIERE_DB_PORT="5432" 
+	ADEMPIERE_DB_PORT="5432"
 
 COPY docker/AdempiereTemplate.properties $ADEMPIERE_HOME/Adempiere.properties
 COPY docker/tomcat/settings/*.xml $CATALINA_HOME/conf

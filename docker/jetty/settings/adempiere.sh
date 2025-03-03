@@ -3,7 +3,15 @@
 #  ADempiere Setting script                                                   ##
 #  Setting ADempiere Server                                                   ##
 ################################################################################
-export EPALE=hola
+
+# Adempiere Application Type
+export ADEMPIERE_APPS_TYPE="jetty"
+
+# Read password from secret file if defined
+if [ -n "$ADEMPIERE_DB_PASSWORD_FILE" ] && [ -f "$ADEMPIERE_DB_PASSWORD_FILE" ]; then
+  export ADEMPIERE_DB_PASSWORD=$(cat "$ADEMPIERE_DB_PASSWORD_FILE")
+fi
+
 #Set Database Type
 case $ADEMPIERE_DB_TYPE in 
 	PostgreSQL) 
@@ -39,4 +47,3 @@ sed -i "s|/usr/local/jetty/etc/jetty-http.xml|/usr/local/jetty/etc/jetty-http.xm
 sed -i "s|-Djetty.base=/var/lib/jetty|-Djetty.base=/var/lib/jetty -DADEMPIERE_HOME=$ADEMPIERE_HOME|g" $JETTY_BASE/jetty.start
 
 /docker-entrypoint.sh
-
