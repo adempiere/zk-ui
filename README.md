@@ -31,7 +31,7 @@ This project is a java client using swing interface and completely based on grad
 The follow requirements need for run it:
 
 - [Java 11 or higher](https://adoptopenjdk.net/)
-- [Gradle](https://gradle.org/install/)
+- [Gradle 8](https://gradle.org/install/)
 
 ## Runing as development
 ### Clean
@@ -64,6 +64,17 @@ gradle war
 
 You can also run it with `docker compose` for develop enviroment. Note that this is a easy way for start the service with PostgreSQL and middleware.
 
+### Environment variables
+ * `ADEMPIERE_HOME`: Directory where the application will be located. Default: `/opt/Adempiere`.
+ * `ADEMPIERE_DB_TYPE`: Database Type (Supported `Oracle` and `PostgreSQL`). Default `PostgreSQL`.
+ * `ADEMPIERE_DB_SERVER`: Hostname for data base server. Default: `localhost`.
+ * `ADEMPIERE_DB_PORT`: Port used by data base server. Default: `5432`.
+ * `ADEMPIERE_DB_NAME`: Database name that Adempiere-Zk UI will use to connect with the database. Default: `adempiere`.
+ * `ADEMPIERE_DB_USER`: Database user that Adempiere-Zk UI will use to connect with the database. Default: `adempiere`.
+ * `ADEMPIERE_DB_PASSWORD`: Database password that Adempiere-Zk UI will use to connect with the database. Default: `adempiere`. For added security, implement secrets with `ADEMPIERE_DB_PASSWORD_FILE`.
+ * `ADEMPIERE_DB_PASSWORD_FILE`: Database password that Adempiere-Zk UI will use to connect with the database. This overrides `ADEMPIERE_DB_PASSWORD` but if not defined no secrets will be implemented in the password but instead the value of the environment variable will be used.
+ * `ADEMPIERE_JAVA_OPTIONS`: Custom settings to the Java Virtual Machine (JVM). Default: `-Xms64M -Xmx1512M`.
+
 ### Requirements
 
 - [Docker Compose v2.16.0 or later](https://docs.docker.com/compose/install/linux/)
@@ -73,7 +84,7 @@ docker compose version
 Docker Compose version v2.16.0
 ```
 
-## Run it
+### Run it
 
 Just go to `docker-compose` folder and run it
 
