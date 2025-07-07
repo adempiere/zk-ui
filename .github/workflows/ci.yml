@@ -1,5 +1,6 @@
 # This workflow will build a Java project with Gradle
 # This file was contributed by ysenih@erpya.com from ERP Consultores y Asociados, C.A
+# This file was contributed by EdwinBetanc0urt@outlook.com https://github.com/EdwinBetanc0urt
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 # Add support to default build
 
@@ -24,6 +25,7 @@ on:
       - bugfix/**
       - hotfix/**
       - feature/**
+      - test/**
     paths-ignore:
       - README.md
       - README.es.md
@@ -45,9 +47,17 @@ jobs:
           java-version: 11
           architecture: x64
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: current # 8.0.2
+
       - name: Build with Gradle
         run: gradle build
         env:
-          GITHUB_DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-          GITHUB_DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+          ORG_GRADLE_PROJECT_deployUsername: ${{ secrets.DEPLOY_USER }}
+          ORG_GRADLE_PROJECT_deployToken: ${{ secrets.DEPLOY_TOKEN }}
+          ORG_GRADLE_PROJECT_deplyRepository: ${{ secrets.DEPLOY_REPOSITORY }}
+          GITHUB_DEPLOY_USER: ${{ github.actor }}
+          GITHUB_DEPLOY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_DEPLOY_REPOSITORY: ${{ secrets.DEPLOY_REPOSITORY }}

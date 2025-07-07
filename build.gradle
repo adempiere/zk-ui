@@ -17,29 +17,56 @@ plugins {
 	id 'application'
 	// Generate Visual Studio Code .vscode & .json project files
 	id "visual-studio"
+	id "io.github.uoxx3.project-environment" version "1.0.1"
 }
+
+startScripts.enabled = false
 
 apply plugin: "org.gretty"
 
+
+ext {
+	javaMainClass = "org.adempiere.Adempiere"
+}
+def baseVersion = '3.9.4'
+def baseGroupId = 'io.github.adempiere'
+def customBaseVersion = "adempiere-3.9.4"
+
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_11
+	// targetCompatibility = JavaVersion.VERSION_17
+}
+application {
+	// mainClass = javaMainClass
+	mainClass.set(javaMainClass)
+}
+jar {
+	manifest {
+		attributes(
+			"Main-Class": javaMainClass
+		)
+	}
+}
+
 repositories {
+	mavenLocal()
     mavenCentral()
-    mavenLocal()
-    maven {
+	maven {
 		// Adempiere GitHub Organization
-		url = 'https://maven.pkg.github.com/adempiere/adempiere'
+		url = findProperty("deployRepository") ?: System.properties['deploy.repository'] ?:
+			projectEnv.get("GITHUB_DEPLOY_REPOSITORY", null) ?: System.getenv("GITHUB_DEPLOY_REPOSITORY") ?:
+			"https://maven.pkg.github.com/adempiere/adempiere"
 		credentials {
-			// project property, system properrty, enviroment variable
-			username = findProperty("deployUsername") ?: System.properties['deploy.user'] ?: System.getenv("GITHUB_DEPLOY_USER")
-			password = findProperty("deployToken") ?: System.properties['deploy.token'] ?: System.getenv("GITHUB_DEPLOY_TOKEN")
+			// project property, system property, .env project file, system enviroment variable
+			username = findProperty("deployUsername") ?: System.properties['deploy.user'] ?:
+				projectEnv.get("GITHUB_DEPLOY_USER", null) ?: System.getenv("GITHUB_DEPLOY_USER")
+			password = findProperty("deployToken") ?: System.properties['deploy.token'] ?:
+				projectEnv.get("GITHUB_DEPLOY_TOKEN", null) ?: System.getenv("GITHUB_DEPLOY_TOKEN")
 		}
 	}
 }
 
-sourceCompatibility = 1.11
-
-def baseVersion = '3.9.4'
-def baseGroupId = 'io.github.adempiere'
-def customBaseVersion = "adempiere-3.9.4"
 
 dependencies {
     implementation fileTree(
@@ -223,23 +250,6 @@ sourceSets {
     }
 }
 
-startScripts.enabled = false
-
-ext {
-	javaMainClass = "org.adempiere.Adempiere"
-}
-
-application {
-	// mainClass = javaMainClass
-	mainClass.set(javaMainClass)
-}
-jar {
-	manifest {
-		attributes(
-			"Main-Class": javaMainClass
-		)
-	}
-}
 
 task startJettyRunner(type: JavaExec) {
 	classpath = sourceSets.main.runtimeClasspath

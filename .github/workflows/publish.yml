@@ -1,5 +1,6 @@
 # This workflow will build a Java project with Gradle
 # This file was contributed by ysenih@erpya.com from ERP Consultores y Asociados, C.A
+# This file was contributed by EdwinBetanc0urt@outlook.com https://github.com/EdwinBetanc0urt
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
 name: Publish Project
@@ -26,21 +27,29 @@ jobs:
           java-package: 'jdk'
           java-version: 11
           architecture: x64
-      
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: current # 8.0.2
+
       - name: Set Main Version
         run: echo "MAIN_VERSION=${{ github.event.release.name }}" >> client/src/main/java/org/adempiere/version.properties
-      
+
       - name: Set Release Date
         run: echo "DATE_VERSION=$(date +'%Y-%m-%d')" >> client/src/main/java/org/adempiere/version.properties
-      
+
       - name: Set Implementation Version
         run: echo "IMPLEMENTATION_VERSION=${{ github.event.release.tag_name }}" >> client/src/main/java/org/adempiere/version.properties
 
-      - name: Run Create Release
+      - name: Create Release with Gradle
         run: gradle createRelease
         env:
-          GITHUB_DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-          GITHUB_DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+          ORG_GRADLE_PROJECT_deployUsername: ${{ secrets.DEPLOY_USER }}
+          ORG_GRADLE_PROJECT_deployToken: ${{ secrets.DEPLOY_TOKEN }}
+          ORG_GRADLE_PROJECT_deplyRepository: ${{ secrets.DEPLOY_REPOSITORY }}
+          GITHUB_DEPLOY_USER: ${{ github.actor }}
+          GITHUB_DEPLOY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_DEPLOY_REPOSITORY: ${{ secrets.DEPLOY_REPOSITORY }}
 
       - name: Upload dist app zip artifact
@@ -81,7 +90,7 @@ jobs:
 
 
   publish-binaries:
-    name: Upload Binaries adempiere-zk
+    name: Upload Binaries ADempiere-Zk
     needs: build-app
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
