@@ -1,8 +1,8 @@
 # zk-ui
 
 <p align="center">
-  <a href="https://adoptium.net/es/temurin/releases/?version=11">
-    <img src="https://badgen.net/badge/Java/11/orange" alt="Java">
+  <a href="https://adoptium.net/es/temurin/releases/?version=17">
+    <img src="https://badgen.net/badge/Java/17/orange" alt="Java">
   </a>
   <a href="https://github.com/adempiere/zk-ui/actions/workflows/ci.yml">
     <img src="https://github.com/adempiere/zk-ui/actions/workflows/ci.yml/badge.svg" alt="Build GH Action">
@@ -30,10 +30,11 @@ This project is a java client using swing interface and completely based on grad
 
 The follow requirements need for run it:
 
-- [Java 11 or higher](https://adoptopenjdk.net/)
-- [Gradle 8](https://gradle.org/install/)
+- [Java 17 or higher](https://adoptopenjdk.net/)
+- [Gradle 9](https://gradle.org/install/)
 
 ## Runing as development
+
 ### Clean
 ```shell
 gradle clean
