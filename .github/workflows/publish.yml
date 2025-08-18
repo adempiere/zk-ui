@@ -45,8 +45,11 @@ jobs:
       - name: Create Release with Gradle
         run: gradle createRelease --warning-mode all --stacktrace
         env:
-          GITHUB_DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-          GITHUB_DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+          ORG_GRADLE_PROJECT_deployUsername: ${{ secrets.DEPLOY_USER }}
+          ORG_GRADLE_PROJECT_deployToken: ${{ secrets.DEPLOY_TOKEN }}
+          ORG_GRADLE_PROJECT_deployRepository: ${{ secrets.DEPLOY_REPOSITORY }}
+          GITHUB_DEPLOY_USER: ${{ github.actor }}
+          GITHUB_DEPLOY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_DEPLOY_REPOSITORY: ${{ secrets.DEPLOY_REPOSITORY }}
 
       - name: Upload dist app zip artifact
