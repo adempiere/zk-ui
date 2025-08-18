@@ -1,6 +1,6 @@
-FROM jetty:10.0.11-jdk11
+FROM jetty:10.0.25-jdk17-eclipse-temurin
 
-LABEL manteiner=cparada@erpya.com
+LABEL manteiner="cparada@erpya.com; EdwinBetanc0urt@outlook.com;"
 	
 ENV ADEMPIERE_HOME="/opt/Adempiere" \
 	ADEMPIERE_DB_USER="adempiere" \
@@ -17,8 +17,8 @@ COPY --chown=jetty:jetty docker/jetty/settings/adempiere.sh $JETTY_BASE/bin/
 COPY --chown=jetty:jetty docker/jetty/zk-ui/zk-ui.war $JETTY_BASE/webapps/webui.war
 COPY --chown=jetty:jetty docker/jetty/zk-ui/lib/*.jar $JETTY_BASE/lib/ext/
 
-RUN	rm -R $JETTY_BASE/lib/ext/javaee-api*  && \
-	chmod +x $JETTY_BASE/bin/adempiere.sh  && \
+RUN	rm -R $JETTY_BASE/lib/ext/javaee-api* && \
+	chmod +x $JETTY_BASE/bin/adempiere.sh && \
 	/generate-jetty-start.sh
 
 ENTRYPOINT ["bin/adempiere.sh"]

@@ -25,7 +25,7 @@ services:
   adempiere-zk:
     build:
       context: ../../
-      dockerfile: docker/jetty/Dockerfile
+      dockerfile: docker/jetty/jetty.Dockerfile
     container_name: ${ADEMPIERE_NAME}
     restart: ${GENERIC_RESTART}
     ports:
