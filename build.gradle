@@ -1,28 +1,63 @@
 buildscript {
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-  }
-  dependencies {
-    classpath "org.gretty:gretty:4.0.3"
-  }
+	repositories {
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
+	dependencies {
+		classpath "org.gretty:gretty:4.1.7"
+	}
 }
 
 plugins {
 	id 'java'
 	id 'war'
-	// id "org.gretty"
+	// Running web-apps on jetty and tomcat.
+	id "org.gretty" version "4.1.7"
 	// Provide convenience executables for trying out the examples.
 	id 'application'
 	// Generate Visual Studio Code .vscode & .json project files
 	id "visual-studio"
+	// Read .env files
 	id "io.github.uoxx3.project-environment" version "1.0.1"
+}
+
+
+def baseVersion = '3.9.4'
+def baseGroupId = 'io.github.adempiere'
+def customBaseVersion = "adempiere-3.9.4"
+
+ext {
+	javaMainClass = "org.adempiere.Adempiere"
+}
+
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 startScripts.enabled = false
 
-apply plugin: "org.gretty"
+application {
+	mainClass.set(javaMainClass)
+
+	// distribution output
+	distributions {
+		main {
+			contents {
+			}
+		}
+	}
+}
+jar {
+	manifest {
+		attributes(
+			"Main-Class": javaMainClass
+		)
+	}
+}
+
 
 
 ext {
@@ -53,10 +88,21 @@ repositories {
 	mavenLocal()
     mavenCentral()
 	maven {
-		// Adempiere GitHub Organization
+		// Custom Repository (ADempiere by default)
 		url = findProperty("deployRepository") ?: System.properties['deploy.repository'] ?:
 			projectEnv.get("GITHUB_DEPLOY_REPOSITORY", null) ?: System.getenv("GITHUB_DEPLOY_REPOSITORY") ?:
 			"https://maven.pkg.github.com/adempiere/adempiere"
+		credentials {
+			// project property, system property, .env project file, system enviroment variable
+			username = findProperty("deployUsername") ?: System.properties['deploy.user'] ?:
+				projectEnv.get("GITHUB_DEPLOY_USER", null) ?: System.getenv("GITHUB_DEPLOY_USER")
+			password = findProperty("deployToken") ?: System.properties['deploy.token'] ?:
+				projectEnv.get("GITHUB_DEPLOY_TOKEN", null) ?: System.getenv("GITHUB_DEPLOY_TOKEN")
+		}
+	}
+	maven {
+		// Adempiere GitHub Organization
+		url = "https://maven.pkg.github.com/adempiere/adempiere"
 		credentials {
 			// project property, system property, .env project file, system enviroment variable
 			username = findProperty("deployUsername") ?: System.properties['deploy.user'] ?:
@@ -250,6 +296,13 @@ sourceSets {
     }
 }
 
+// compressed files task
+distTar {
+	dependsOn compileTestJava, startScripts
+}
+distZip {
+	dependsOn compileTestJava, startScripts
+}
 
 task startJettyRunner(type: JavaExec) {
 	classpath = sourceSets.main.runtimeClasspath
@@ -277,4 +330,8 @@ task createRelease(type: Copy) {
             ant.checksum file: file
         }
    	}
+}
+
+task cleanBuild(type: GradleBuild) {
+	tasks = ['clean', 'build']
 }

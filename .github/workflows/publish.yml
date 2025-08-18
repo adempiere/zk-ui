@@ -5,6 +5,10 @@
 
 name: Publish Project
 
+permissions:
+  contents: write # to upload release assets
+  packages: write # to publish packages
+
 on:
   release:
     types:
@@ -20,30 +24,27 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v4
 
-      - name: Set up Java JDK 11
+      - name: Setup Java JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-package: 'jdk'
-          java-version: 11
+          java-version: 17
           architecture: x64
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: current # 8.0.2
+          gradle-version: 9.0.0 # current
 
-      - name: Set Main Version
-        run: echo "MAIN_VERSION=${{ github.event.release.name }}" >> client/src/main/java/org/adempiere/version.properties
-
-      - name: Set Release Date
-        run: echo "DATE_VERSION=$(date +'%Y-%m-%d')" >> client/src/main/java/org/adempiere/version.properties
-
-      - name: Set Implementation Version
-        run: echo "IMPLEMENTATION_VERSION=${{ github.event.release.tag_name }}" >> client/src/main/java/org/adempiere/version.properties
+      - name: Set Version Properties
+        run: |
+          echo "MAIN_VERSION=${{ github.event.release.name }}" >> client/src/main/java/org/adempiere/version.properties
+          echo "DATE_VERSION=$(date +'%Y-%m-%d')" >> client/src/main/java/org/adempiere/version.properties
+          echo "IMPLEMENTATION_VERSION=${{ github.event.release.tag_name }}" >> client/src/main/java/org/adempiere/version.properties
 
       - name: Create Release with Gradle
-        run: gradle createRelease
+        run: gradle createRelease --warning-mode all --stacktrace
         env:
           ORG_GRADLE_PROJECT_deployUsername: ${{ secrets.DEPLOY_USER }}
           ORG_GRADLE_PROJECT_deployToken: ${{ secrets.DEPLOY_TOKEN }}
@@ -201,7 +202,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: docker/jetty/Dockerfile.alpine
+          file: docker/jetty/jetty-alpine.Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKER_REPO_ADEMPIERE_ZK }}:jetty-alpine-${{ github.event.release.tag_name }}
@@ -246,7 +247,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: docker/jetty/Dockerfile
+          file: docker/jetty/jetty.Dockerfile
           platforms: linux/amd64,linux/amd64/v2,linux/arm64/v8
           push: true
           tags: |

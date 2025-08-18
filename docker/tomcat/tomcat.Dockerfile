@@ -1,6 +1,6 @@
-FROM tomcat:9.0.72-jdk11-temurin
+FROM tomcat:9.0.108-jdk17-temurin-noble
 
-LABEL manteiner=cparada@erpya.com
+LABEL manteiner="cparada@erpya.com; EdwinBetanc0urt@outlook.com;"
 	
 ENV ADEMPIERE_HOME="/opt/Adempiere" \
 	ADEMPIERE_DB_USER="adempiere" \
