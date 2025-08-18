@@ -59,31 +59,6 @@ jar {
 }
 
 
-
-ext {
-	javaMainClass = "org.adempiere.Adempiere"
-}
-def baseVersion = '3.9.4'
-def baseGroupId = 'io.github.adempiere'
-def customBaseVersion = "adempiere-3.9.4"
-
-
-java {
-	sourceCompatibility = JavaVersion.VERSION_11
-	// targetCompatibility = JavaVersion.VERSION_17
-}
-application {
-	// mainClass = javaMainClass
-	mainClass.set(javaMainClass)
-}
-jar {
-	manifest {
-		attributes(
-			"Main-Class": javaMainClass
-		)
-	}
-}
-
 repositories {
 	mavenLocal()
     mavenCentral()
