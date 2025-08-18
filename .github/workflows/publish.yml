@@ -210,6 +210,7 @@ jobs:
           IS_PRE_RELEASE=${{ github.event.release.prerelease }}
           # Set the base tags, always include the specific version tag
           TAGS="${{ secrets.DOCKER_REPO_ADEMPIERE_ZK }}:${{ github.event.release.tag_name }}-jertty-alpine"
+          TAGS+=",${{ secrets.DOCKER_REPO_ADEMPIERE_ZK }}:${{ github.event.release.tag_name }}-alpine"
           # If it's not a pre-release, add the "latest" tag
           if [[ "$IS_PRE_RELEASE" == "false" ]]; then
             TAGS+=",${{ secrets.DOCKER_REPO_ADEMPIERE_ZK }}:jertty-alpine"
