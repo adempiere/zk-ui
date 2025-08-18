@@ -18,7 +18,7 @@ jobs:
   # Build dist application adempiere-middleware
   build-app:
     name: Build ADempiere Zk
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
@@ -127,7 +127,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: zk-ui.tar.MD5/zk-ui.tar.MD5
-       
+
       - name: Upload war
         uses: skx/github-action-publish-binaries@master
         env:
