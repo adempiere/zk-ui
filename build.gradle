@@ -62,13 +62,28 @@ jar {
 repositories {
 	mavenLocal()
     mavenCentral()
-    maven {
-		// Adempiere GitHub Organization
-		url = 'https://maven.pkg.github.com/adempiere/adempiere'
+	maven {
+		// Custom Repository (ADempiere by default)
+		url = findProperty("deployRepository") ?: System.properties['deploy.repository'] ?:
+			projectEnv.get("GITHUB_DEPLOY_REPOSITORY", null) ?: System.getenv("GITHUB_DEPLOY_REPOSITORY") ?:
+			"https://maven.pkg.github.com/adempiere/adempiere"
 		credentials {
-			// project property, system properrty, enviroment variable
-			username = findProperty("deployUsername") ?: System.properties['deploy.user'] ?: System.getenv("GITHUB_DEPLOY_USER")
-			password = findProperty("deployToken") ?: System.properties['deploy.token'] ?: System.getenv("GITHUB_DEPLOY_TOKEN")
+			// project property, system property, .env project file, system enviroment variable
+			username = findProperty("deployUsername") ?: System.properties['deploy.user'] ?:
+				projectEnv.get("GITHUB_DEPLOY_USER", null) ?: System.getenv("GITHUB_DEPLOY_USER")
+			password = findProperty("deployToken") ?: System.properties['deploy.token'] ?:
+				projectEnv.get("GITHUB_DEPLOY_TOKEN", null) ?: System.getenv("GITHUB_DEPLOY_TOKEN")
+		}
+	}
+	maven {
+		// Adempiere GitHub Organization
+		url = "https://maven.pkg.github.com/adempiere/adempiere"
+		credentials {
+			// project property, system property, .env project file, system enviroment variable
+			username = findProperty("deployUsername") ?: System.properties['deploy.user'] ?:
+				projectEnv.get("GITHUB_DEPLOY_USER", null) ?: System.getenv("GITHUB_DEPLOY_USER")
+			password = findProperty("deployToken") ?: System.properties['deploy.token'] ?:
+				projectEnv.get("GITHUB_DEPLOY_TOKEN", null) ?: System.getenv("GITHUB_DEPLOY_TOKEN")
 		}
 	}
 }

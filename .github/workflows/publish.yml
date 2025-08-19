@@ -1,5 +1,6 @@
 # This workflow will build a Java project with Gradle
 # This file was contributed by ysenih@erpya.com from ERP Consultores y Asociados, C.A
+# This file was contributed by EdwinBetanc0urt@outlook.com https://github.com/EdwinBetanc0urt
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
 name: Publish Project
@@ -90,7 +91,7 @@ jobs:
 
 
   publish-binaries:
-    name: Upload Binaries adempiere-zk
+    name: Upload Binaries ADempiere-Zk
     needs: build-app
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
