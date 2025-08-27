@@ -33,7 +33,9 @@ sed -i "s|@ADEMPIERE_DB_SERVER@|$ADEMPIERE_DB_SERVER|g" $ADEMPIERE_HOME/Adempier
 sed -i "s|@ADEMPIERE_DB_PORT@|$ADEMPIERE_DB_PORT|g" $ADEMPIERE_HOME/Adempiere.properties
 sed -i "s|@ADEMPIERE_DB_NAME@|$ADEMPIERE_DB_NAME|g" $ADEMPIERE_HOME/Adempiere.properties
 sed -i "s|@ADEMPIERE_DB_USER@|$ADEMPIERE_DB_USER|g" $ADEMPIERE_HOME/Adempiere.properties
-sed -i "s|@ADEMPIERE_DB_PASSWORD@|$ADEMPIERE_DB_PASSWORD|g" $ADEMPIERE_HOME/Adempiere.properties 
+sed -i "s|@ADEMPIERE_DB_PASSWORD@|$ADEMPIERE_DB_PASSWORD|g" $ADEMPIERE_HOME/Adempiere.properties
+sed -i "s|xyzWARNING|$ADEMPIERE_LOG_LEVEL|g" $ADEMPIERE_HOME/Adempiere.properties
+sed -i "s|xyzUTF-8|$ADEMPIERE_CHARSET|g" $ADEMPIERE_HOME/Adempiere.properties
 
 #Replace Values in server.xml
 sed -i "s|@ADEMPIERE_DB_JDBC_URL@|$ADEMPIERE_DB_JDBC_URL|g" $CATALINA_HOME/conf/server.xml

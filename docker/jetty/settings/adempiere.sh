@@ -31,7 +31,9 @@ sed -i "s|@ADEMPIERE_DB_SERVER@|$ADEMPIERE_DB_SERVER|g" $ADEMPIERE_HOME/Adempier
 sed -i "s|@ADEMPIERE_DB_PORT@|$ADEMPIERE_DB_PORT|g" $ADEMPIERE_HOME/Adempiere.properties
 sed -i "s|@ADEMPIERE_DB_NAME@|$ADEMPIERE_DB_NAME|g" $ADEMPIERE_HOME/Adempiere.properties
 sed -i "s|@ADEMPIERE_DB_USER@|$ADEMPIERE_DB_USER|g" $ADEMPIERE_HOME/Adempiere.properties
-sed -i "s|@ADEMPIERE_DB_PASSWORD@|$ADEMPIERE_DB_PASSWORD|g" $ADEMPIERE_HOME/Adempiere.properties 
+sed -i "s|@ADEMPIERE_DB_PASSWORD@|$ADEMPIERE_DB_PASSWORD|g" $ADEMPIERE_HOME/Adempiere.properties
+sed -i "s|xyzWARNING|$ADEMPIERE_LOG_LEVEL|g" $ADEMPIERE_HOME/Adempiere.properties
+sed -i "s|xyzUTF-8|$ADEMPIERE_CHARSET|g" $ADEMPIERE_HOME/Adempiere.properties
 
 #Replace Values in server.xml
 sed -i "s|@ADEMPIERE_DB_JDBC_URL@|$ADEMPIERE_DB_JDBC_URL|g" $JETTY_BASE/jetty-ds.xml
@@ -41,7 +43,6 @@ sed -i "s|@ADEMPIERE_DB_PORT@|$ADEMPIERE_DB_PORT|g" $JETTY_BASE/jetty-ds.xml
 sed -i "s|@ADEMPIERE_DB_NAME@|$ADEMPIERE_DB_NAME|g" $JETTY_BASE/jetty-ds.xml
 sed -i "s|@ADEMPIERE_DB_USER@|$ADEMPIERE_DB_USER|g" $JETTY_BASE/jetty-ds.xml
 sed -i "s|@ADEMPIERE_DB_PASSWORD@|$ADEMPIERE_DB_PASSWORD|g" $JETTY_BASE/jetty-ds.xml
-
 
 sed -i "s|/usr/local/jetty/etc/jetty-http.xml|/usr/local/jetty/etc/jetty-http.xml /var/lib/jetty/jetty-ds.xml|g" $JETTY_BASE/jetty.start
 sed -i "s|-Djetty.base=/var/lib/jetty|-Djetty.base=/var/lib/jetty -DADEMPIERE_HOME=$ADEMPIERE_HOME|g" $JETTY_BASE/jetty.start

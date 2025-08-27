@@ -67,6 +67,9 @@ You can also run it with `docker compose` for develop enviroment. Note that this
 
 ### Environment variables
  * `ADEMPIERE_HOME`: Directory where the application will be located. Default: `/opt/Adempiere`.
+ * `ADEMPIERE_JAVA_OPTIONS`: Custom settings to the Java Virtual Machine (JVM). Default: `-Xms64M -Xmx1512M`.
+ * `ADEMPIERE_LOG_LEVEL`: Output Log Level. Default: `WARNING`.
+ * `ADEMPIERE_CHARSET`: Encoding system. Default: `UTF-8`.
  * `ADEMPIERE_DB_TYPE`: Database Type (Supported `Oracle` and `PostgreSQL`). Default `PostgreSQL`.
  * `ADEMPIERE_DB_SERVER`: Hostname for data base server. Default: `localhost`.
  * `ADEMPIERE_DB_PORT`: Port used by data base server. Default: `5432`.
@@ -74,7 +77,7 @@ You can also run it with `docker compose` for develop enviroment. Note that this
  * `ADEMPIERE_DB_USER`: Database user that Adempiere-Zk UI will use to connect with the database. Default: `adempiere`.
  * `ADEMPIERE_DB_PASSWORD`: Database password that Adempiere-Zk UI will use to connect with the database. Default: `adempiere`. For added security, implement secrets with `ADEMPIERE_DB_PASSWORD_FILE`.
  * `ADEMPIERE_DB_PASSWORD_FILE`: Database password that Adempiere-Zk UI will use to connect with the database. This overrides `ADEMPIERE_DB_PASSWORD` but if not defined no secrets will be implemented in the password but instead the value of the environment variable will be used.
- * `ADEMPIERE_JAVA_OPTIONS`: Custom settings to the Java Virtual Machine (JVM). Default: `-Xms64M -Xmx1512M`.
+ * `TZ`: (Time Zone) Indicates the time zone to set in the nginx-based container, the default value is `America/Caracas` (UTC -4:00).
 
 ### Requirements
 
