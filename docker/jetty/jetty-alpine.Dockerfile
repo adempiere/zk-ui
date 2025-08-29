@@ -2,14 +2,21 @@ FROM jetty:10.0.25-jdk17-alpine-eclipse-temurin
 
 LABEL manteiner="cparada@erpya.com; EdwinBetanc0urt@outlook.com;"
 
-ENV ADEMPIERE_HOME="/opt/Adempiere" \
-	ADEMPIERE_DB_USER="adempiere" \
-	ADEMPIERE_DB_PASSWORD="adempiere" \
+ENV \
+	# Server
+	ADEMPIERE_HOME="/opt/Adempiere" \
 	ADEMPIERE_JAVA_OPTIONS="-Xms64M -Xmx1512M" \
+	ADEMPIERE_LOG_LEVEL="WARNING" \
+	ADEMPIERE_CHARSET="UTF-8" \
+	# Database
 	ADEMPIERE_DB_TYPE="PostgreSQL" \
 	ADEMPIERE_DB_SERVER="localhost" \
+	ADEMPIERE_DB_PORT="5432" \
 	ADEMPIERE_DB_NAME="adempiere" \
-	ADEMPIERE_DB_PORT="5432"
+	ADEMPIERE_DB_USER="adempiere" \
+	ADEMPIERE_DB_PASSWORD="adempiere" \
+	# System
+	TZ="America/Caracas"
 
 COPY --chown=jetty:jetty docker/AdempiereTemplate.properties $ADEMPIERE_HOME/Adempiere.properties
 COPY --chown=jetty:jetty docker/jetty/settings/jetty-ds.xml $JETTY_BASE
