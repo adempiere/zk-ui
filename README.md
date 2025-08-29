@@ -65,6 +65,12 @@ gradle war
 
 You can also run it with `docker compose` for develop enviroment. Note that this is a easy way for start the service with PostgreSQL and middleware.
 
+### Image variants
+ * `Eclipse Jetty` web server based `docker pull openls/adempiere-zk-ui:jetty`
+ <!--
+ * `Apache Tomcat` web server based `docker pull openls/adempiere-zk-ui:tomcat`
+ -->
+
 ### Environment variables
  * `ADEMPIERE_HOME`: Directory where the application will be located. Default: `/opt/Adempiere`.
  * `ADEMPIERE_DB_TYPE`: Database Type (Supported `Oracle` and `PostgreSQL`). Default `PostgreSQL`.
